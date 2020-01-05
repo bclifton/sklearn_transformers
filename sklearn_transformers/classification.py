@@ -9,7 +9,7 @@ class BinaryClassifierWithNoise(BaseEstimator, ClassifierMixin):
 
     def _add_noise(self, predictions):
         adj_predictions = predictions - np.random.rand(len(predictions), 1) * 0.001
-        first_value = adj_predictions.take(0, axis=1)
+        first_value = np.absolute(adj_predictions).take(0, axis=1)
         second_value = 1 - first_value
         return np.stack([first_value, second_value], axis=1)
 
